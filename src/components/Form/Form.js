@@ -41,17 +41,28 @@ class Form extends Component {
         ]
     };
 
-    inputChangedHandler(event, index) {
+    inputChangedHandler = (event, index) => {
         console.log('event', event, 'index=> ', index)
-        let field = this.state.field[index];
-        const sss = this.state.field[index].val
-        console.log('veventeventeventevent', sss )
+        
+        const sss = this.state.field[index] 
+        sss.val = event.target.value;
+
+        console.log('veventeventeventevent', sss)
+
         this.setState({
             ...this.state.field,
-            this.state.field[index].val : event.target.value
+            // this.state.field[index] : sss
+            
             // ...this.state.field[index].val : event.targe.value;
             // field.val : event.target.value
         })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        let valNotEmpty = this.state.field.filter(i => i.val > 0 )
+        return false
     }
 
     render() {
@@ -78,7 +89,7 @@ class Form extends Component {
 
         return (
             <div className="app-container">
-                <form className="form">
+                <form className="form" onSubmit={this.handleSubmit}>
                     <h1>Введите свои данные, агент</h1>
 
                     { formFields }
